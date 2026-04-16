@@ -173,6 +173,7 @@ def build_controls_sidebar() -> None:
         horizontal=False,
     )
 
+
     st.session_state.algo = st.sidebar.radio(
         "Algorithm",
         options=["BFS", "DFS"],
@@ -250,6 +251,7 @@ def render_graph(graph: nx.Graph, visited: List[str], current: str) -> None:
     visited_set = set(visited)
     pos = _safe_pos(graph)
     renderer = st.session_state.viz_engine
+    
 
     if renderer == "PyVis":
         html = build_pyvis_html(
@@ -298,7 +300,8 @@ def animate_single_run() -> None:
         st.session_state.render_step_type = step.step_type
 
         with graph_slot.container():
-            st.subheader(f"{algo} Traversal - Step {idx + 1}/{len(steps)}")
+            title_text = f"{algo} Traversal - Step {idx + 1}/{len(steps)}"
+            st.subheader(title_text)
             render_graph(graph, step.seen_nodes, step.current)
 
         with status_slot:
@@ -318,6 +321,8 @@ def animate_single_run() -> None:
                 edge_label = f"{step.traversal_edge[0]} -> {step.traversal_edge[1]}"
                 st.markdown(f"<span class=\"metric-chip\">Active Edge: {edge_label}</span>", unsafe_allow_html=True)
             st.markdown(f"<span class=\"metric-chip\">Event: {step.step_type}</span>", unsafe_allow_html=True)
+
+
             st.info(step.explanation)
             st.markdown("</div>", unsafe_allow_html=True)
 
@@ -350,21 +355,25 @@ def render_single_static_state() -> None:
     left, right = st.columns([2.1, 1.2], gap="large")
 
     with left:
-        st.subheader(f"{algo} Traversal State")
+        title_text = f"{algo} Traversal State"
+        st.subheader(title_text)
         render_graph(graph, step.seen_nodes, step.current)
 
     with right:
         st.markdown('<div class="panel">', unsafe_allow_html=True)
         st.markdown(f"#### Current Node: {step.current}")
-        st.write(f"Traversal Order: {', '.join(step.traversal_order)}")
+        st.write(f"Traversal Order: {', '.join(step.traversal_order) or 'None'}")
         st.write(f"Seen Nodes: {', '.join(step.seen_nodes)}")
         ds_name = "Queue" if algo == "BFS" else "Stack"
         st.write(f"{ds_name}: [{', '.join(step.frontier)}]")
         if step.traversal_edge:
             st.write(f"Active Edge: {step.traversal_edge[0]} -> {step.traversal_edge[1]}")
         st.write(f"Event Type: {step.step_type}")
+        
+
         st.info(step.explanation)
         st.markdown("</div>", unsafe_allow_html=True)
+
 
     st.markdown("### Traversal Output")
     st.code(f"{algo}: {' -> '.join(steps[-1].traversal_order)}")
@@ -483,13 +492,6 @@ def main() -> None:
             else:
                 render_single_static_state()
 
-        st.divider()
-        st.subheader("Adjacency List")
-        if st.session_state.graph.number_of_nodes() > 0:
-            adj = adjacency_dict(st.session_state.graph)
-            st.json(adj)
-        else:
-            st.info("Adjacency list will appear here once a graph is loaded.")
 
     with tab_theory:
         render_theory_tab()

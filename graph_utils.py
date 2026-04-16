@@ -66,7 +66,11 @@ def random_graph(node_count: int = 8, edge_probability: float = 0.28, seed: int 
     return graph
 
 
-def _node_styles(node: str, visited: Set[str], current: str) -> Tuple[str, int]:
+def _node_styles(
+    node: str,
+    visited: Set[str],
+    current: str,
+) -> Tuple[str, int]:
     if node == current:
         return "#F97316", 34
     if node in visited:
