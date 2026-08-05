@@ -4,13 +4,13 @@ An interactive educational visualizer built with Python + Streamlit.
 
 ## Features
 
-- BFS and DFS traversal with step-by-step animation
+- BFS and DFS traversal with step-by-step animation and explanation
 - Queue/Stack state shown during each step
 - Current node and visited nodes highlighted
 - Graph input modes:
   - Manual input (example: `A-B, A-C, B-D`)
   - Sample graph loader
-  - Random graph generator
+  - Random graph generator 
 - PyVis interactive rendering (with Matplotlib fallback)
 - Comparison mode (BFS vs DFS side-by-side)
 - Theory tab with complexity and use-cases
