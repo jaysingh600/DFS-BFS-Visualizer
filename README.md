@@ -2,7 +2,7 @@
 
 An interactive educational visualizer built with Python + Streamlit.
 
-## Features
+## Features of this project
 
 - BFS and DFS traversal with step-by-step animation and explanation
 - Queue/Stack state shown during each step
