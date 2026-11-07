@@ -1,4 +1,4 @@
-# Graph Traversal Visualizer using BFS and DFS 
+# Graph Traversal Visualizer using BFS and DFS project 
 
 An interactive educational visualizer built with Python + Streamlit.
 
